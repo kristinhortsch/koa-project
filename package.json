@@ -2,11 +2,11 @@
   "name": "koa-project",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "start": "nodemon server.js",
+    "start": "nodemon --inspect lib/app.js",
     "test": "jest",
     "test:watch": "jest --watch --runInBand"
   },
@@ -26,10 +26,16 @@
     "supertest": "^3.4.2"
   },
   "dependencies": {
+    "dotenv": "^6.2.0",
     "koa": "^2.6.2",
+    "koa-body": "^4.0.6",
+    "koa-bodyparser": "^4.2.1",
     "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
     "nodemon": "^1.18.9",
     "superagent": "^4.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
