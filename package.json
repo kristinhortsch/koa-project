@@ -1,0 +1,35 @@
+{
+  "name": "koa-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "start": "nodemon server.js",
+    "test": "jest",
+    "test:watch": "jest --watch --runInBand"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristinhortsch/koa-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kristinhortsch/koa-project/issues"
+  },
+  "homepage": "https://github.com/kristinhortsch/koa-project#readme",
+  "devDependencies": {
+    "eslint": "^5.12.1",
+    "jest": "^24.0.0",
+    "supertest": "^3.4.2"
+  },
+  "dependencies": {
+    "koa": "^2.6.2",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "nodemon": "^1.18.9",
+    "superagent": "^4.1.0"
+  }
+}
