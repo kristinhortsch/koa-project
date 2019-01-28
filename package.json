@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "start": "nodemon --inspect lib/app.js",
+    "start": "nodemon --inspect index.js",
     "test": "jest",
     "test:watch": "jest --watch --runInBand"
   },
@@ -26,12 +26,18 @@
     "supertest": "^3.4.2"
   },
   "dependencies": {
+    "@koa/cors": "^2.2.3",
     "dotenv": "^6.2.0",
     "koa": "^2.6.2",
     "koa-body": "^4.0.6",
     "koa-bodyparser": "^4.2.1",
     "koa-logger": "^3.2.0",
+    "koa-mongo": "^1.6.0",
+    "koa-respond": "^2.1.0",
     "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "mongodb": "^3.1.13",
+    "mongoose": "^5.4.6",
     "nodemon": "^1.18.9",
     "superagent": "^4.1.0"
   },

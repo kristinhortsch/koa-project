@@ -1,7 +1,6 @@
 require('dotenv').config();
-require('../lib/utils/connect')();
 const request = require('supertest');
-const app = require('../lib/app');
+const app = require('../server.js');
 const mongoose = require('mongoose');
 
 describe('nike app', () => {
