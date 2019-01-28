@@ -11,19 +11,20 @@ describe('nike app', () => {
   });
 
   it('creates a new nike shoe product', async() => {
-    return request(app)
+    const response = await request(app.callback())
       .post('/nike')
       .send({
         shoe: 'Nike Zoom Pegasus Turbo',
         type: 'Running Shoe',
         price: '$180'
-      })
-      .then(res => {
-        expect(res.body).toEqual({
-          shoe: 'Nike Zoom Pegasus Turbo',
-          type: 'Running Shoe',
-          price: '$180'
-        });
       });
+    expect(response.body).toEqual({
+      shoe: 'Nike Zoom Pegasus Turbo',
+      type: 'Running Shoe',
+      price: '$180',
+      __v: 0, 
+      _id: expect.any(String)
+    });
   });
 });
+
