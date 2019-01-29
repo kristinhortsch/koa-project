@@ -12,6 +12,7 @@ const createShoe = async(shoe) => {
       price: '$180'
     });
 };
+
 describe('nike app', () => {
   beforeEach(done => {
     return mongoose.connection.dropDatabase(() => {
@@ -42,5 +43,42 @@ describe('nike app', () => {
     const response = await request(app.callback()).get('/nike');
     expect(response.body).toHaveLength(4);
   });
+
+  it('gets a shoe by id', async() => {
+    const createdShoe = async() => await createShoe('air max');
+    var path = '/users/' + createdShoe._id;
+    const response = await request(app.callback()).get('/nike/' + path);
+    expect(response.body).toEqual({
+      shoe: 'air max',
+      price: '$180',
+      type: 'Running Shoe',
+      _id: expect.any(String),
+      __v: 0
+    });
+  });
+
+  it('updates a shoe with :id and returns the update', async() => {
+    const updatedShoe = async() => await createShoe('air force mids');
+    updatedShoe.type = 'new shoe';
+    const id = updatedShoe._id;
+    const response = await request(app.callback())
+      .put(`/nike/${id}`)
+      .send(updatedShoe);
+    expect(response.body).toEqual({
+      shoe: 'new shoe',
+      price: '$180',
+      type: 'Running Shoe',
+      _id: expect.any(String),
+      __v: 0
+    });
+  });
+
+  it('deletes a shoe with :id and returns the delete count', async() => {
+    const createdShoe = async() => await createShoe('lebrons');
+    const id = createdShoe._id;
+    const response = await request(app.callback()).delete(`/nike/${id}`);
+    expect(response.body).toBeDefined();
+  });
 });
+
 
