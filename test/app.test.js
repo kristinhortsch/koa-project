@@ -4,7 +4,7 @@ const app = require('../server.js');
 const mongoose = require('mongoose');
 
 const createShoe = async(shoe) => {
-  await request(app.callback())
+  return request(app.callback())
     .post('/nike')
     .send({
       shoe: shoe,
@@ -45,11 +45,11 @@ describe('nike app', () => {
   });
 
   it('gets a shoe by id', async() => {
-    const createdShoe = async() => await createShoe('air max');
-    var path = '/users/' + createdShoe._id;
-    const response = await request(app.callback()).get('/nike/' + path);
+    const createdShoe = await createShoe('lebrons');
+    const id = createdShoe.body._id;
+    const response = await request(app.callback()).get(`/nike/${id}`);
     expect(response.body).toEqual({
-      shoe: 'air max',
+      shoe: 'lebrons',
       price: '$180',
       type: 'Running Shoe',
       _id: expect.any(String),
@@ -58,14 +58,18 @@ describe('nike app', () => {
   });
 
   it('updates a shoe with :id and returns the update', async() => {
-    const updatedShoe = async() => await createShoe('air force mids');
-    updatedShoe.type = 'new shoe';
-    const id = updatedShoe._id;
+    const updatedShoe = await createShoe('air force mids');
+    updatedShoe.body.shoe = 'newer';
+    const id = updatedShoe.body._id;
     const response = await request(app.callback())
       .put(`/nike/${id}`)
-      .send(updatedShoe);
+      .send({
+        shoe: 'newer',
+        type: 'Running Shoe',
+        price: '$180'
+      });
     expect(response.body).toEqual({
-      shoe: 'new shoe',
+      shoe: 'newer',
       price: '$180',
       type: 'Running Shoe',
       _id: expect.any(String),
@@ -74,10 +78,16 @@ describe('nike app', () => {
   });
 
   it('deletes a shoe with :id and returns the delete count', async() => {
-    const createdShoe = async() => await createShoe('lebrons');
-    const id = createdShoe._id;
+    const createdShoe = await createShoe('lebrons');
+    const id = createdShoe.body._id;
     const response = await request(app.callback()).delete(`/nike/${id}`);
-    expect(response.body).toBeDefined();
+    expect(response.body).toEqual({
+      __v: 0,
+      _id: expect.any(String),
+      price: '$180',
+      shoe: 'lebrons',
+      type: 'Running Shoe',
+    });
   });
 });
 
