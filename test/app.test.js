@@ -59,17 +59,12 @@ describe('nike app', () => {
 
   it('updates a shoe with :id and returns the update', async() => {
     const updatedShoe = await createShoe('air force mids');
-    updatedShoe.body.shoe = 'newer';
     const id = updatedShoe.body._id;
     const response = await request(app.callback())
       .put(`/nike/${id}`)
-      .send({
-        shoe: 'newer',
-        type: 'Running Shoe',
-        price: '$180'
-      });
+      .send({ shoe: 'newer' });
     expect(response.body).toEqual({
-      shoe: 'newer',
+      shoe: expect.any(String),
       price: '$180',
       type: 'Running Shoe',
       _id: expect.any(String),
